@@ -1,11 +1,10 @@
+// ************************************     VARIABLES    ************************************
 const URL_GLOBAL = "https://covid19.mathdro.id/api"
 const URL_COUNTRIES = "https://covid19.mathdro.id/api/countries"
-
-
-
 const selectCountrieHtml = document.querySelector("#countrie")
+const ulDataHtml = document.querySelector('.data-results')
 
-
+// ************************************     FUNCTIONS   ************************************
 
 function addOptionElement(content) {
     let option = document.createElement("option")
@@ -13,7 +12,28 @@ function addOptionElement(content) {
     selectCountrieHtml.appendChild(option)
 }
 
+function addLiElement(content) {
+    let li = document.createElement("li")
+    li.innerHTML = content
+    ulDataHtml.appendChild(li)
+}
 
+
+function getLastDataUpdateDate(lastUpdate) {
+    return `${makeToDigits(lastUpdate.getDate())}/${makeToDigits(
+      lastUpdate.getMonth() + 1
+    )}/${makeToDigits(lastUpdate.getFullYear())} à ${makeToDigits(
+      lastUpdate.getHours()
+    )}H${makeToDigits(lastUpdate.getMinutes())}min`;
+}
+
+function makeToDigits(value) {
+    return value > 9 ? value : "0" + value.toString();
+}
+
+
+
+// ************************************     AJAX    ************************************
 
 
 fetch(URL_GLOBAL).then(function (response) {
@@ -74,6 +94,12 @@ fetch(URL_COUNTRIES).then(function (response) {
 
                 // event listener on select and make fetch on this value
                 selectCountrieHtml.addEventListener('change', () => {
+                    // delete li if exist
+                    if (ulDataHtml.hasChildNodes()) {
+                        for (let index = 0; index < 4; index++) {
+                            ulDataHtml.removeChild(ulDataHtml.lastChild)
+                        }
+                    }
 
                     for (let countrie of countriesTableau) {
                         if (selectCountrieHtml.value === countrie[0]) {
@@ -86,26 +112,18 @@ fetch(URL_COUNTRIES).then(function (response) {
                                             console.log(`l'objet JSON du covid countries details pays:`);
                                             console.log(data);
 
-                                            let countrieConfirmed = data.confirmed.value
-                                            console.log(countrieConfirmed);
+                                            let mortalityRate = ((data.deaths.value * 100) / data.confirmed.value).toFixed(2)
+                                            const lastUpdate = new Date(data.lastUpdate);
+                                            const niceDate = getLastDataUpdateDate(lastUpdate);
 
-                                            let countrieRecovered = data.recovered.value
-                                            console.log(countrieRecovered);
-
-
-                                            let countrieDeaths = data.deaths.value
-                                            console.log(countrieDeaths);
+                                            console.log(niceDate);
 
 
-
-
-
-
-
-
-
-
-
+                                            addLiElement(`Nombre de cas confirmé : ${data.confirmed.value}`)
+                                            addLiElement(`Nombre total de mort : ${data.deaths.value}`)
+                                            addLiElement(`Nombre de cas guéris : ${data.recovered.value}`)
+                                            addLiElement(`Taux de mortalité de : ${mortalityRate}%`)
+                                            addLiElement(`Mise à jour des données : ${niceDate}`)
 
                                         })
                                     } else {
@@ -124,10 +142,6 @@ fetch(URL_COUNTRIES).then(function (response) {
                         }
                     }
                 })
-
-
-
-
 
 
 
