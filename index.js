@@ -4,6 +4,12 @@ const URL_COUNTRIES = "https://covid19.mathdro.id/api/countries"
 const selectCountrieHtml = document.querySelector("#countrie")
 const ulDataHtml = document.querySelector('.data-results')
 
+const europeCode = ["DE", "AT", "BE", "BG", "CY", "HR", "DK", "ES", "EE", "FI", "FR", "GR", "HU", "IE", "IT", "LV", "LT", "MT", "LU", "NL", "PL", "PT", "CZ", "RO", "GB", "SK", "SI", "SE"]
+var asiaCode = ["AF", "AM", "AZ", "BH", "BD", "BT", "BN", "KH", "CN", "CY", "TL", "GE", "HK", "IN", "ID", "IR", "IQ", "IL", "JP", "JO", "KZ", "KW", "KG", "LA", "LB", "MO", "MY", "MV", "MN", "MM", "NP", "OM", "PK", "PH", "QA", "SA", "SG", "LK", "SY", "TJ", "TH", "TR", "TM", "AE", "UZ", "VN", "YE"]
+var africaCode = ["DZ", "AO", "BJ", "BW", "IO", "BF", "BI", "CM", "CV", "CF", "TD", "KM", "DJ", "EG", "GQ", "ER", "ET", "GA", "GH", "GW", "GN", "CI", "KE", "LS", "LR", "MG", "MW", "ML", "MR", "MU", "YT", "MA", "MZ", "NA", "NE", "NG", "RE", "RW", "SH", "ST", "SN", "SC", "SL", "SO", "ZA", "SS", "SD", "SZ", "TZ", "TG", "TN", "UG", "EH", "ZM", "ZW"]
+var northAmericaCode = ["AI", "AG", "AW", "BS", "BB", "BZ", "BM", "CA", "KY", "CR", "CU", "DM", "DO", "SV", "GL", "GD", "GP", "GT", "HT", "HN", "JM", "MQ", "MX", "MS", "NI", "PA", "PR", "KN", "LC", "PM", "VC", "TT", "TC"]
+var southAmericaCode = ["AR", "BO", "BR", "CL", "CO", "EC", "FK", "GF", "GY", "PY", "PE", "SR", "UY", "VE"]
+var oceaniaCode = ["AS", "AU", "CX", "CK", "PF", "GU", "KI", "MH", "NR", "NC", "NZ", "NU", "NF", "MP", "PW", "PG", "PN", "WS", "SB", "TK", "TO", "TV", "UM", "VU", "WF"]
 // ************************************     FUNCTIONS   ************************************
 
 function addOptionElement(content) {
@@ -34,7 +40,6 @@ function makeToDigits(value) {
 
 
 // ************************************     AJAX    ************************************
-
 
 fetch(URL_GLOBAL).then(function (response) {
         if (response.ok) {
@@ -79,6 +84,9 @@ fetch(URL_COUNTRIES).then(function (response) {
                     return [String(cle), data.countries[cle]];
                 })
 
+
+
+
                 let iso3Tableau = Object.keys(data.iso3).map(function (cle) {
                     return [String(cle), data.iso3[cle]];
                 })
@@ -92,11 +100,12 @@ fetch(URL_COUNTRIES).then(function (response) {
                     addOptionElement(countrie[0])
                 }
 
+
                 // event listener on select and make fetch on this value
                 selectCountrieHtml.addEventListener('change', () => {
                     // delete li if exist
                     if (ulDataHtml.hasChildNodes()) {
-                        for (let index = 0; index < 4; index++) {
+                        for (let index = 0; index < 5; index++) {
                             ulDataHtml.removeChild(ulDataHtml.lastChild)
                         }
                     }
