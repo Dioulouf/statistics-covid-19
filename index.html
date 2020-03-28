@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Covid-19 | statistiques</title>
-    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans|IBM+Plex+Serif&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Hind+Madurai|Lora|Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/css/style.css">
     <link rel="apple-touch-icon" sizes="180x180" href="sources/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="sources/favicon/favicon-32x32.png">
@@ -22,11 +22,25 @@
     </header>
     <main>
         <div class="container-global-statistic">
-            <h2>Statistiques mondial </h2>
-            <ul class="global-data">
-                <!-- <img src="sources/icons/death.svg" width="50px"> -->
-            </ul>
+
+            <div class="global-data__confirmed">
+                <h3>Contaminés</h3>
+            </div>
+
+            <div class="global-data__deaths">
+                <h3>Morts</h3>
+            </div>
+
+            <div class="global-data__discovered">
+                <h3>Guérris</h3>
+            </div>
+
         </div>
+
+        <div class="chart-div" style="width: 90vw; margin: auto;">
+            <canvas id="myChart"></canvas>
+        </div>
+
 
         <div class="container-choose-countrie">
             <label for="countrie">Choisir un pays : </label>
@@ -36,6 +50,14 @@
 
     </main>
 
+    <footer>
+        <div class="sources-api">
+            <p>Source : https://covid19.mathdro.id/api</p>
+        </div>
+        <div class="update"></div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="index.js"></script>
 </body>
 

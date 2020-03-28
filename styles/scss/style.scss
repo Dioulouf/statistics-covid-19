@@ -1,15 +1,15 @@
 @import "./_reset";
-@import "./_variables";
 @import "./_mixins";
 
+$red : #E6776B;
 
 body {
-    background-color: black;
+    @include backgroundGradient
 }
 
 h1 {
     @include bigTitle;
-    color: $red;
+    color: white;
     text-align: center;
     margin: 3rem;
 }
@@ -17,40 +17,72 @@ h1 {
 h2,
 label {
     @include smallTitle;
+    margin-left: 5%;
 }
-
-
-
-
 
 // global data
 
 .container-global-statistic {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
+    flex-wrap: wrap;
     height: 7rem;
     position: relative;
-    height: 20rem;
-}
+    margin: 5% 0;
+    height: 15rem;
 
-.global-data {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 40rem;
+    // h2 {
+    //     width: 100%;
+    // }
 
-    li:last-child {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        font-size: 1.4rem;
+    .global-data__confirmed,
+    .global-data__deaths {
+        border: 2px solid #E6776B;
+
+        h3 {
+            color: #E6776B;
+        }
+    }
+
+    .global-data__discovered {
+        border: 2px solid #50FFB1;
+
+        h3 {
+            color: #50FFB1;
+        }
+    }
+
+    div {
+        height: 150px;
+        width: 200px;
+
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+
+        h3 {
+            @include smallTitle2;
+        }
+
+        p {
+            font-family: 'Hind Madurai', sans-serif;
+            font-size: 2rem;
+            color: white;
+            letter-spacing: 3px;
+        }
+
     }
 }
 
 li,
 select {
     @include paragraph;
+}
+
+ul {
+    margin-left: 5%;
 }
 
 select {
@@ -65,4 +97,20 @@ select {
 .container-choose-countrie {
     width: 100%;
     margin-top: 5rem;
+}
+
+
+// footer
+footer {
+    width: 90%;
+    height: 100px;
+    margin: 2% 5% 0 5%;
+    border-top: 2px solid white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p {
+        @include paragraph
+    }
 }
