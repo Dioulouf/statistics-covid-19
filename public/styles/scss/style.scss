@@ -26,14 +26,8 @@ label {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    height: 7rem;
     position: relative;
     margin: 5% 0;
-    height: 15rem;
-
-    // h2 {
-    //     width: 100%;
-    // }
 
     .global-data__confirmed,
     .global-data__deaths {
@@ -81,8 +75,13 @@ label {
 // MAP
 
 .map {
+    svg {
+        z-index: 2;
+    }
+
     width: 80%;
     margin: 5% 10%;
+    position: relative;
 
     .st0,
     .st1,
@@ -101,14 +100,63 @@ label {
     #Oceanie {
         transition: .4s;
 
+
         &:hover {
             opacity: 0.5;
+            cursor: pointer;
+        }
+    }
+}
+
+.container-data-continents {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 100%;
+    left: 0;
+
+    .global-data-map__confirmed,
+    .global-data-map__deaths {
+        border: 2px solid #E6776B;
+
+        h3 {
+            color: #E6776B;
         }
     }
 
+    .global-data-map__discovered {
+        border: 2px solid #50FFB1;
 
+        h3 {
+            color: #50FFB1;
+        }
+    }
+
+    div {
+        height: 150px;
+        width: 200px;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        transform: translateX(-200%);
+        transition: .3s;
+
+        h3 {
+            @include smallTitle2;
+        }
+
+        p {
+            font-family: 'Hind Madurai', sans-serif;
+            font-size: 2rem;
+            color: white;
+            letter-spacing: 3px;
+        }
+
+    }
 }
-
 
 
 

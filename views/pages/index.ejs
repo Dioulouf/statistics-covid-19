@@ -6,7 +6,6 @@
     </header>
     <main>
         <div class="container-global-statistic">
-
             <div class="global-data__confirmed">
                 <h3>Contaminés</h3>
             </div>
@@ -18,7 +17,6 @@
             <div class="global-data__discovered">
                 <h3>Guérris</h3>
             </div>
-
         </div>
 
         <div class="chart-div" style="width: 90vw; margin: auto;">
@@ -26,6 +24,19 @@
         </div>
 
         <div class="map">
+            <div class="container-data-continents">
+                <div class="global-data-map__confirmed">
+                    <h3>Contaminés</h3>
+                </div>
+
+                <div class="global-data-map__deaths">
+                    <h3>Morts</h3>
+                </div>
+
+                <div class="global-data-map__discovered">
+                    <h3>Guérris</h3>
+                </div>
+            </div>
             <%- include('_continents'); -%>
         </div>
 
@@ -46,7 +57,8 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script src="/static/script.js"></script>
+    <script src="/static/scripts/ajax.js"></script>
+    <script src="/static/scripts/script.js"></script>
 </body>
 
 </html>

@@ -282,10 +282,8 @@ label {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  height: 7rem;
   position: relative;
   margin: 5% 0;
-  height: 15rem;
 }
 .container-global-statistic .global-data__confirmed,
 .container-global-statistic .global-data__deaths {
@@ -325,6 +323,10 @@ label {
 .map {
   width: 80%;
   margin: 5% 10%;
+  position: relative;
+}
+.map svg {
+  z-index: 2;
 }
 .map .st0,
 .map .st1,
@@ -349,6 +351,52 @@ label {
 .map #Afrique:hover,
 .map #Oceanie:hover {
   opacity: 0.5;
+  cursor: pointer;
+}
+
+.container-data-continents {
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 100%;
+  left: 0;
+}
+.container-data-continents .global-data-map__confirmed,
+.container-data-continents .global-data-map__deaths {
+  border: 2px solid #E6776B;
+}
+.container-data-continents .global-data-map__confirmed h3,
+.container-data-continents .global-data-map__deaths h3 {
+  color: #E6776B;
+}
+.container-data-continents .global-data-map__discovered {
+  border: 2px solid #50FFB1;
+}
+.container-data-continents .global-data-map__discovered h3 {
+  color: #50FFB1;
+}
+.container-data-continents div {
+  height: 150px;
+  width: 200px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  transform: translateX(-200%);
+  transition: 0.3s;
+}
+.container-data-continents div h3 {
+  font-family: "Lora", serif;
+  font-size: 2.2rem;
+  font-weight: 500;
+}
+.container-data-continents div p {
+  font-family: "Hind Madurai", sans-serif;
+  font-size: 2rem;
+  color: white;
+  letter-spacing: 3px;
 }
 
 li,
