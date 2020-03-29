@@ -1,0 +1,25 @@
+{
+  "name": "statistics-covid-19",
+  "version": "1.0.0",
+  "description": "Web interface to have live covid-19 statistics. I'm doing this project to train AJAX requests and js graphics.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dioulouf/statistics-covid-19.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dioulouf/statistics-covid-19/issues"
+  },
+  "homepage": "https://github.com/Dioulouf/statistics-covid-19#readme",
+  "dependencies": {
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2"
+  }
+}

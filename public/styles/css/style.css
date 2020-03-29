@@ -322,6 +322,11 @@ label {
   letter-spacing: 3px;
 }
 
+.map {
+  width: 90%;
+  margin: 5%;
+}
+
 li,
 select {
   font-family: "Hind Madurai", sans-serif;
