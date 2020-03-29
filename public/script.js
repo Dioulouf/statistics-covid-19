@@ -64,6 +64,14 @@ fetch(URL_GLOBAL).then(function (response) {
         console.log('Il y a eu un problème avec l\'opération fetch global : ' + error.message);
     })
 
+
+
+
+
+
+
+
+
 fetch(URL_COUNTRIES).then(function (response) {
         if (response.ok) {
             response.json().then((data) => {
@@ -74,13 +82,17 @@ fetch(URL_COUNTRIES).then(function (response) {
 
 
 
-                let countriesTableau = Object.keys(data.countries).map(function (cle) {
+                var countriesTableau = Object.keys(data.countries).map(function (cle) {
                     return [data.countries[cle]]
                 })
+
+
+
 
                 for (let countrie of countriesTableau) {
                     addElement("option", countrie[0].name, "#countrie")
                 }
+
 
                 // event listener on select and make fetch on this value
                 selectCountrieHtml.addEventListener('change', () => {
@@ -117,12 +129,10 @@ fetch(URL_COUNTRIES).then(function (response) {
                                 })
                             } else {
                                 console.log('Mauvaise réponse du réseau');
-                                addLiElement("Mauvaise réponse du réseau")
                             }
                         })
                         .catch(function (error) {
                             console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-                            addLiElement("Il y a une erreur")
                         });
                 }) // eventlisten END
             }) // response data END
@@ -138,10 +148,28 @@ fetch(URL_COUNTRIES).then(function (response) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // for (let index = 13; index < 15; index++) {
 
 // var dateGlobal = `3-${index}-2020`
-var dateGlobal = `3-27-2020`
+var dateGlobal = `3-28-2020`
 
 console.log(dateGlobal);
 
@@ -190,12 +218,12 @@ var chart = new Chart(ctx, {
     // The data for our dataset
     data: {
 
-        labels: ["1 Fév", "2", "3", "4", "5", "6", "7", "8", "9", "10 Fév", "11", "12", "13", "14", "15", "16", "17 ", "18", "19", "20 Fév", "21", "22", "23", "24", "25", "26", "27", "28", "29", "1 Mars", "2", "3", "4", "5", "6", "7", "8", "9", "10 Mars", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20 Mars", "21", "22", "23", "24", "25", "26", "27"],
+        labels: ["1 Fév", "2", "3", "4", "5", "6", "7", "8", "9", "10 Fév", "11", "12", "13", "14", "15", "16", "17 ", "18", "19", "20 Fév", "21", "22", "23", "24", "25", "26", "27", "28", "29", "1 Mars", "2", "3", "4", "5", "6", "7", "8", "9", "10 Mars", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20 Mars", "21", "22", "23", "24", "25", "26", "27", "28"],
         datasets: [{
             label: 'morts',
             borderColor: '#E6776B',
             pointHoverBackgroundColor: '#E6776B',
-            data: [259, 362, 426, 492, 564, 634, 719, 806, 906, 1013, 1113, 1118, 1371, 1523, 1666, 1770, 1868, 2007, 2122, 2247, 2251, 2458, 2469, 2629, 2708, 2770, 2814, 2872, 2941, 2996, 3085, 3160, 3254, 3348, 3460, 3558, 3803, 3996, 4262, 4615, 4720, 5404, 5819, 6440, 7126, 7905, 8733, 9867, 11299, 12973, 14623, 16497, 18615, 21181, 23970, 27198]
+            data: [259, 362, 426, 492, 564, 634, 719, 806, 906, 1013, 1113, 1118, 1371, 1523, 1666, 1770, 1868, 2007, 2122, 2247, 2251, 2458, 2469, 2629, 2708, 2770, 2814, 2872, 2941, 2996, 3085, 3160, 3254, 3348, 3460, 3558, 3803, 3996, 4262, 4615, 4720, 5404, 5819, 6440, 7126, 7905, 8733, 9867, 11299, 12973, 14623, 16497, 18615, 21181, 23970, 27198, 30652]
         }]
     },
 
@@ -228,3 +256,94 @@ var chart = new Chart(ctx, {
         },
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+fetch(URL_COUNTRIES).then(function (response) {
+        if (response.ok) {
+            response.json().then((data) => {
+
+                var countriesTableau = Object.keys(data.countries).map(function (cle) {
+                    return [data.countries[cle]]
+                })
+
+                var isoContinent = []
+
+                for (let countrie of countriesTableau) {
+                    for (let eu of europeCode) {
+                        if (countrie[0].iso2 === eu) {
+                            isoContinent.push(countrie[0].iso3)
+                        }
+                    }
+                }
+
+                var europeConfirmed = []
+                var europeDeaths = []
+                var europeRecovered = []
+
+                for (let isoEu of isoContinent) {
+
+                    const URL_COUNTRIES_DETAILS = `https://covid19.mathdro.id/api/countries/${isoEu}`
+
+                    fetch(URL_COUNTRIES_DETAILS).then(function (response) {
+                            if (response.ok) {
+                                response.json().then((data) => {
+
+                                    let mortalityRate = ((data.deaths.value * 100) / data.confirmed.value).toFixed(2)
+                                    const lastUpdate = new Date(data.lastUpdate);
+                                    const niceDate = getLastDataUpdateDate(lastUpdate);
+
+                                    europeDeaths.push(data.deaths.value)
+                                    europeRecovered.push(data.recovered.value)
+                                    europeConfirmed.push(data.confirmed.value)
+                                })
+                            } else {
+                                console.log('Mauvaise réponse du réseau');
+                            }
+                        })
+
+                        .catch(function (error) {
+                            console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+                        });
+                } // end for
+
+
+                console.log("europe confirmed :", europeConfirmed);
+                console.log("europeDeaths  :", europeDeaths);
+                console.log("europe Recovered", europeRecovered);
+
+
+            }) // response data END
+        } else {
+            console.log('Mauvaise réponse du réseau');
+        }
+    })
+    .catch(function (error) {
+        console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+    });

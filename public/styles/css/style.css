@@ -323,8 +323,32 @@ label {
 }
 
 .map {
-  width: 90%;
-  margin: 5%;
+  width: 80%;
+  margin: 5% 10%;
+}
+.map .st0,
+.map .st1,
+.map .st2,
+.map .st3,
+.map .st4,
+.map .st5 {
+  fill: #E6776B;
+}
+.map #Am-nord,
+.map #Am-sud,
+.map #Europe,
+.map #Asie,
+.map #Afrique,
+.map #Oceanie {
+  transition: 0.4s;
+}
+.map #Am-nord:hover,
+.map #Am-sud:hover,
+.map #Europe:hover,
+.map #Asie:hover,
+.map #Afrique:hover,
+.map #Oceanie:hover {
+  opacity: 0.5;
 }
 
 li,

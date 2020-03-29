@@ -81,8 +81,32 @@ label {
 // MAP
 
 .map {
-    width: 90%;
-    margin: 5%;
+    width: 80%;
+    margin: 5% 10%;
+
+    .st0,
+    .st1,
+    .st2,
+    .st3,
+    .st4,
+    .st5 {
+        fill: $red;
+    }
+
+    #Am-nord,
+    #Am-sud,
+    #Europe,
+    #Asie,
+    #Afrique,
+    #Oceanie {
+        transition: .4s;
+
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+
+
 }
 
 
