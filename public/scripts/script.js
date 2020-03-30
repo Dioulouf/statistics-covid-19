@@ -7,23 +7,20 @@ const afriqueSVG = document.querySelector("#Afrique")
 const amSudSVG = document.querySelector("#Am-sud")
 const amNordSVG = document.querySelector("#Am-nord")
 const continents = [europeSVG, asieSVG, oceanieSVG, afriqueSVG, amSudSVG, amNordSVG]
+const containerDataContinents = document.querySelector(".container-data-continents")
 const deathsDataContinent = document.querySelector(".global-data-map__deaths ")
 const confirmerDataContinent = document.querySelector(".global-data-map__confirmed")
 const discoveredDataContinent = document.querySelector(".global-data-map__discovered")
+const continentsHoverEffect = document.querySelectorAll(".hover-effect")
+const titleContinent = document.querySelector(".title-continent")
 let clickBool = false
-
-// europeSVG 
-// asieSVG
-// oceanieSVG
-// afriqueSVG
-// amSudSVG
-// amNordSVG
 
 
 // ************************************     FUNCTIONS   ************************************
 
 
 function displayDataContinent(continent, time) {
+    containerDataContinents.style.transform = "translateX(0)"
     setTimeout(() => {
         continent.style.transform = "translateX(0)"
     }, time);
@@ -33,20 +30,36 @@ function shadowDataContinent(continent, time) {
     setTimeout(() => {
         continent.style.transform = "translateX(-200%)"
     }, time);
+    setTimeout(() => {
+        containerDataContinents.style.transform = "translateX(-100%)"
+    }, 500);
 }
 
 function shadowContinent(continent) {
-    continent.style.opacity = "0"
     continent.style.visibility = "hidden"
 }
 
 function displayContinent(continent) {
-    continent.style.opacity = "1"
-    continent.style.visibility = "visible"
+
+    setTimeout(() => {
+        continent.style.visibility = "visible"
+    }, 500);
+}
+
+function displayTitleContinent(continent) {
+    titleContinent.innerHTML = ""
+    titleContinent.innerHTML = continent
+    titleContinent.style.transform = "scale(1)"
+}
+
+function shadowTitleContinent() {
+    titleContinent.style.transform = "scale(0)"
 }
 
 
-// **********************************************       IHM
+
+
+// **********************************************       IHM      ***********************************
 
 
 
@@ -62,6 +75,7 @@ for (let continent of continents) {
 
             switch (continent) {
                 case europeSVG:
+                    displayTitleContinent("Europe")
                     europeSVG.style.transform = "scale(1.6)"
                     shadowContinent(asieSVG)
                     shadowContinent(oceanieSVG)
@@ -70,6 +84,7 @@ for (let continent of continents) {
                     shadowContinent(amNordSVG)
                     break
                 case asieSVG:
+                    displayTitleContinent("Asie")
                     shadowContinent(europeSVG)
                     asieSVG.style.transform = "scale(1.07) translateY(10%)"
                     shadowContinent(oceanieSVG)
@@ -78,6 +93,7 @@ for (let continent of continents) {
                     shadowContinent(amNordSVG)
                     break
                 case afriqueSVG:
+                    displayTitleContinent("Afrique")
                     shadowContinent(europeSVG)
                     shadowContinent(asieSVG)
                     shadowContinent(oceanieSVG)
@@ -86,6 +102,7 @@ for (let continent of continents) {
                     shadowContinent(amNordSVG)
                     break
                 case oceanieSVG:
+                    displayTitleContinent("Oceanie")
                     shadowContinent(europeSVG)
                     shadowContinent(asieSVG)
                     oceanieSVG.style.transform = "translateY(-30%)"
@@ -95,6 +112,7 @@ for (let continent of continents) {
                     break
 
                 case amSudSVG:
+                    displayTitleContinent("Amérique du sud")
                     shadowContinent(europeSVG)
                     shadowContinent(asieSVG)
                     shadowContinent(oceanieSVG)
@@ -103,6 +121,7 @@ for (let continent of continents) {
                     shadowContinent(amNordSVG)
                     break
                 case amNordSVG:
+                    displayTitleContinent("Amérique du Nord")
                     shadowContinent(europeSVG)
                     shadowContinent(asieSVG)
                     shadowContinent(oceanieSVG)
@@ -113,9 +132,10 @@ for (let continent of continents) {
             }
         } else {
 
-            shadowDataContinent(confirmerDataContinent, 0)
+            shadowDataContinent(confirmerDataContinent, 10)
             shadowDataContinent(deathsDataContinent, 100)
-            shadowDataContinent(discoveredDataContinent, 300)
+            shadowDataContinent(discoveredDataContinent, 200)
+            shadowTitleContinent()
 
 
             switch (continent) {

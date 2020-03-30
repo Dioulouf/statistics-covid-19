@@ -285,65 +285,149 @@ var chart = new Chart(ctx, {
 
 
 
-fetch(URL_COUNTRIES).then(function (response) {
-        if (response.ok) {
-            response.json().then((data) => {
+// fetch(URL_COUNTRIES).then(function (response) {
+//         if (response.ok) {
+//             response.json().then((data) => {
 
-                var countriesTableau = Object.keys(data.countries).map(function (cle) {
-                    return [data.countries[cle]]
-                })
+//                 var countriesTableau = Object.keys(data.countries).map(function (cle) {
+//                     return [data.countries[cle]]
+//                 })
 
-                var isoContinent = []
+//                 var isoContinent = []
 
-                for (let countrie of countriesTableau) {
-                    for (let eu of europeCode) {
-                        if (countrie[0].iso2 === eu) {
-                            isoContinent.push(countrie[0].iso3)
+//                 for (let countrie of countriesTableau) {
+//                     for (let eu of europeCode) {
+//                         if (countrie[0].iso2 === eu) {
+//                             isoContinent.push(countrie[0].iso3)
+//                         }
+//                     }
+//                 }
+
+//                 var europeConfirmed = []
+//                 var europeDeaths = []
+//                 var europeRecovered = []
+
+//                 for (let isoEu of isoContinent) {
+
+//                     const URL_COUNTRIES_DETAILS = `https://covid19.mathdro.id/api/countries/${isoEu}`
+
+//                     fetch(URL_COUNTRIES_DETAILS).then(function (response) {
+//                             if (response.ok) {
+//                                 response.json().then((data) => {
+
+//                                     let mortalityRate = ((data.deaths.value * 100) / data.confirmed.value).toFixed(2)
+//                                     const lastUpdate = new Date(data.lastUpdate);
+//                                     const niceDate = getLastDataUpdateDate(lastUpdate);
+
+//                                     europeDeaths.push(data.deaths.value)
+//                                     europeRecovered.push(data.recovered.value)
+//                                     europeConfirmed.push(data.confirmed.value)
+//                                 })
+//                             } else {
+//                                 console.log('Mauvaise réponse du réseau');
+//                             }
+//                         })
+
+//                         .catch(function (error) {
+//                             console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+//                         });
+//                 } // end for
+
+
+//                 console.log("europe confirmed :", europeConfirmed);
+//                 console.log("europeDeaths  :", europeDeaths);
+//                 console.log("europe Recovered", europeRecovered);
+
+
+//             }) // response data END
+//         } else {
+//             console.log('Mauvaise réponse du réseau');
+//         }
+//     })
+//     .catch(function (error) {
+//         console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+//     });
+
+
+
+
+
+
+function getDataContinent(continent) {
+
+    fetch(URL_COUNTRIES).then(function (response) {
+            if (response.ok) {
+                response.json().then((data) => {
+
+                    var countriesTableau = Object.keys(data.countries).map(function (cle) {
+                        return [data.countries[cle]]
+                    })
+
+                    var isoContinent = []
+
+                    for (let countrie of countriesTableau) {
+                        for (let eu of continent) {
+                            if (countrie[0].iso2 === eu) {
+                                isoContinent.push(countrie[0].iso3)
+                            }
                         }
                     }
-                }
 
-                var europeConfirmed = []
-                var europeDeaths = []
-                var europeRecovered = []
+                    var continentConfirmed = []
+                    var continentDeaths = []
+                    var continentRecovered = []
 
-                for (let isoEu of isoContinent) {
+                    for (let isoEu of isoContinent) {
 
-                    const URL_COUNTRIES_DETAILS = `https://covid19.mathdro.id/api/countries/${isoEu}`
+                        const URL_COUNTRIES_DETAILS = `https://covid19.mathdro.id/api/countries/${isoEu}`
 
-                    fetch(URL_COUNTRIES_DETAILS).then(function (response) {
-                            if (response.ok) {
-                                response.json().then((data) => {
+                        fetch(URL_COUNTRIES_DETAILS).then(function (response) {
+                                if (response.ok) {
+                                    response.json().then((data) => {
 
-                                    let mortalityRate = ((data.deaths.value * 100) / data.confirmed.value).toFixed(2)
-                                    const lastUpdate = new Date(data.lastUpdate);
-                                    const niceDate = getLastDataUpdateDate(lastUpdate);
+                                        let mortalityRate = ((data.deaths.value * 100) / data.confirmed.value).toFixed(2)
+                                        const lastUpdate = new Date(data.lastUpdate);
+                                        const niceDate = getLastDataUpdateDate(lastUpdate);
 
-                                    europeDeaths.push(data.deaths.value)
-                                    europeRecovered.push(data.recovered.value)
-                                    europeConfirmed.push(data.confirmed.value)
-                                })
-                            } else {
-                                console.log('Mauvaise réponse du réseau');
-                            }
-                        })
+                                        continentDeaths.push(data.deaths.value)
+                                        continentRecovered.push(data.recovered.value)
+                                        continentConfirmed.push(data.confirmed.value)
+                                    })
+                                } else {
+                                    console.log('Mauvaise réponse du réseau');
+                                }
+                            })
 
-                        .catch(function (error) {
-                            console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-                        });
-                } // end for
+                            .catch(function (error) {
+                                console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+                            });
+                    } // end for
+                    continentConfirmed
 
-
-                console.log("europe confirmed :", europeConfirmed);
-                console.log("europeDeaths  :", europeDeaths);
-                console.log("europe Recovered", europeRecovered);
+                    continentDeaths
+                    continentRecovered
 
 
-            }) // response data END
-        } else {
-            console.log('Mauvaise réponse du réseau');
-        }
-    })
-    .catch(function (error) {
-        console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-    });
+
+
+
+
+
+
+
+
+                }) // response data END
+                return continentConfirmed, continentDeaths, continentRecovered
+            } else {
+                console.log('Mauvaise réponse du réseau');
+            }
+        })
+        .catch(function (error) {
+            console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+        });
+
+}
+
+
+
+getDataContinent(europeCode)

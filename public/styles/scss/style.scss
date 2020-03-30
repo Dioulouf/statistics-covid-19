@@ -75,13 +75,18 @@ label {
 // MAP
 
 .map {
-    svg {
-        z-index: 2;
-    }
-
     width: 80%;
-    margin: 5% 10%;
+    margin: 10%;
     position: relative;
+
+
+    h2 {
+        position: absolute;
+        left: 40%;
+        transition: .5s;
+        transform: scale(0);
+
+    }
 
     .st0,
     .st1,
@@ -98,8 +103,7 @@ label {
     #Asie,
     #Afrique,
     #Oceanie {
-        transition: .4s;
-
+        transition: opacity .3s, transform .5s;
 
         &:hover {
             opacity: 0.5;
@@ -115,6 +119,7 @@ label {
     flex-direction: column;
     height: 100%;
     left: 0;
+    transform: translateX(-100%);
 
     .global-data-map__confirmed,
     .global-data-map__deaths {

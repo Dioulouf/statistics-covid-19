@@ -322,11 +322,14 @@ label {
 
 .map {
   width: 80%;
-  margin: 5% 10%;
+  margin: 10%;
   position: relative;
 }
-.map svg {
-  z-index: 2;
+.map h2 {
+  position: absolute;
+  left: 40%;
+  transition: 0.5s;
+  transform: scale(0);
 }
 .map .st0,
 .map .st1,
@@ -342,7 +345,7 @@ label {
 .map #Asie,
 .map #Afrique,
 .map #Oceanie {
-  transition: 0.4s;
+  transition: opacity 0.3s, transform 0.5s;
 }
 .map #Am-nord:hover,
 .map #Am-sud:hover,
@@ -361,6 +364,7 @@ label {
   flex-direction: column;
   height: 100%;
   left: 0;
+  transform: translateX(-100%);
 }
 .container-data-continents .global-data-map__confirmed,
 .container-data-continents .global-data-map__deaths {
