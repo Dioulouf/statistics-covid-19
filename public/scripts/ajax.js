@@ -6,15 +6,6 @@ const URL_COUNTRIES = "https://covid19.mathdro.id/api/countries"
 const selectCountrieHtml = document.querySelector("#countrie")
 const ulDataHtml = document.querySelector('.data-results')
 
-
-const europeCode = ["DE", "AT", "BE", "BG", "CY", "HR", "DK", "ES", "EE", "FI", "FR", "GR", "HU", "IE", "IT", "LV", "LT", "MT", "LU", "NL", "PL", "PT", "CZ", "RO", "GB", "SK", "SI", "SE"]
-const asiaCode = ["AF", "AM", "AZ", "BH", "BD", "BT", "BN", "KH", "CN", "CY", "TL", "GE", "HK", "IN", "ID", "IR", "IQ", "IL", "JP", "JO", "KZ", "KW", "KG", "LA", "LB", "MO", "MY", "MV", "MN", "MM", "NP", "OM", "PK", "PH", "QA", "SA", "SG", "LK", "SY", "TJ", "TH", "TR", "TM", "AE", "UZ", "VN", "YE"]
-const africaCode = ["DZ", "AO", "BJ", "BW", "IO", "BF", "BI", "CM", "CV", "CF", "TD", "KM", "DJ", "EG", "GQ", "ER", "ET", "GA", "GH", "GW", "GN", "CI", "KE", "LS", "LR", "MG", "MW", "ML", "MR", "MU", "YT", "MA", "MZ", "NA", "NE", "NG", "RE", "RW", "SH", "ST", "SN", "SC", "SL", "SO", "ZA", "SS", "SD", "SZ", "TZ", "TG", "TN", "UG", "EH", "ZM", "ZW"]
-const northAmericaCode = ["AI", "AG", "AW", "BS", "BB", "BZ", "BM", "CA", "KY", "CR", "CU", "DM", "DO", "SV", "GL", "GD", "GP", "GT", "HT", "HN", "JM", "MQ", "MX", "MS", "NI", "PA", "PR", "KN", "LC", "PM", "VC", "TT", "TC"]
-const southAmericaCode = ["AR", "BO", "BR", "CL", "CO", "EC", "FK", "GF", "GY", "PY", "PE", "SR", "UY", "VE"]
-const oceaniaCode = ["AS", "AU", "CX", "CK", "PF", "GU", "KI", "MH", "NR", "NC", "NZ", "NU", "NF", "MP", "PW", "PG", "PN", "WS", "SB", "TK", "TO", "TV", "UM", "VU", "WF"]
-
-
 // ************************************     FUNCTIONS   ************************************
 
 function addElement(element, content, parentNode) {
@@ -39,6 +30,8 @@ function makeToDigits(value) {
 // ************************************     AJAX    ************************************
 
 
+// ************************************     Global
+// req to have global data 
 fetch(URL_GLOBAL).then(function (response) {
         if (response.ok) {
             response.json().then((data) => {
@@ -67,33 +60,21 @@ fetch(URL_GLOBAL).then(function (response) {
 
 
 
+// ************************************     Countrie
 
 
 
 
-
+// req to have data by countrie and inject this in html 
 fetch(URL_COUNTRIES).then(function (response) {
         if (response.ok) {
             response.json().then((data) => {
-                console.log(`l'objet JSON du covid countries:`);
-                console.log(data);
-                console.log(`data fetch test :`);
-                console.log(data);
-
-
-
                 var countriesTableau = Object.keys(data.countries).map(function (cle) {
                     return [data.countries[cle]]
                 })
-
-
-
-
                 for (let countrie of countriesTableau) {
                     addElement("option", countrie[0].name, "#countrie")
                 }
-
-
                 // event listener on select and make fetch on this value
                 selectCountrieHtml.addEventListener('change', () => {
                     // delete li if exist
@@ -102,13 +83,11 @@ fetch(URL_COUNTRIES).then(function (response) {
                             ulDataHtml.removeChild(ulDataHtml.lastChild)
                         }
                     }
-
                     for (let countrie of countriesTableau) {
                         if (selectCountrieHtml.value === countrie[0].name) {
                             var iso = countrie[0].iso3
                         }
                     }
-
                     const URL_COUNTRIES_DETAILS = `https://covid19.mathdro.id/api/countries/${iso}`
 
                     fetch(URL_COUNTRIES_DETAILS).then(function (response) {
@@ -147,28 +126,8 @@ fetch(URL_COUNTRIES).then(function (response) {
 
 
 
+// ************************************     graphic
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// for (let index = 13; index < 15; index++) {
-
-// var dateGlobal = `3-${index}-2020`
 var dateGlobal = `3-28-2020`
 
 console.log(dateGlobal);
@@ -186,7 +145,7 @@ fetch(`https://covid19.mathdro.id/api/daily/${dateGlobal}`).then(function (respo
                     Confirmed.push(parseInt(objet.confirmed))
                     Recovored.push(parseInt(objet.recovered))
                 }
-                console.log(`date : ${dateGlobal}`);
+                console.log(`Graph date : ${dateGlobal}`);
 
                 console.log(Deaths.reduce((a, b) => a + b, 0))
                 // console.log(Confirmed.reduce((a, b) => a + b, 0))
@@ -200,15 +159,15 @@ fetch(`https://covid19.mathdro.id/api/daily/${dateGlobal}`).then(function (respo
     .catch(function (error) {
         console.log('Il y a eu un problème avec l\'opération fetch global : ' + error.message);
     })
-// }
 
-function getDataDate(date) {
 
-}
+
 
 
 
 // ************************************     Graphique    ************************************
+
+
 
 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
@@ -256,178 +215,3 @@ var chart = new Chart(ctx, {
         },
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// fetch(URL_COUNTRIES).then(function (response) {
-//         if (response.ok) {
-//             response.json().then((data) => {
-
-//                 var countriesTableau = Object.keys(data.countries).map(function (cle) {
-//                     return [data.countries[cle]]
-//                 })
-
-//                 var isoContinent = []
-
-//                 for (let countrie of countriesTableau) {
-//                     for (let eu of europeCode) {
-//                         if (countrie[0].iso2 === eu) {
-//                             isoContinent.push(countrie[0].iso3)
-//                         }
-//                     }
-//                 }
-
-//                 var europeConfirmed = []
-//                 var europeDeaths = []
-//                 var europeRecovered = []
-
-//                 for (let isoEu of isoContinent) {
-
-//                     const URL_COUNTRIES_DETAILS = `https://covid19.mathdro.id/api/countries/${isoEu}`
-
-//                     fetch(URL_COUNTRIES_DETAILS).then(function (response) {
-//                             if (response.ok) {
-//                                 response.json().then((data) => {
-
-//                                     let mortalityRate = ((data.deaths.value * 100) / data.confirmed.value).toFixed(2)
-//                                     const lastUpdate = new Date(data.lastUpdate);
-//                                     const niceDate = getLastDataUpdateDate(lastUpdate);
-
-//                                     europeDeaths.push(data.deaths.value)
-//                                     europeRecovered.push(data.recovered.value)
-//                                     europeConfirmed.push(data.confirmed.value)
-//                                 })
-//                             } else {
-//                                 console.log('Mauvaise réponse du réseau');
-//                             }
-//                         })
-
-//                         .catch(function (error) {
-//                             console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-//                         });
-//                 } // end for
-
-
-//                 console.log("europe confirmed :", europeConfirmed);
-//                 console.log("europeDeaths  :", europeDeaths);
-//                 console.log("europe Recovered", europeRecovered);
-
-
-//             }) // response data END
-//         } else {
-//             console.log('Mauvaise réponse du réseau');
-//         }
-//     })
-//     .catch(function (error) {
-//         console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-//     });
-
-
-
-
-
-
-function getDataContinent(continent) {
-
-    fetch(URL_COUNTRIES).then(function (response) {
-            if (response.ok) {
-                response.json().then((data) => {
-
-                    var countriesTableau = Object.keys(data.countries).map(function (cle) {
-                        return [data.countries[cle]]
-                    })
-
-                    var isoContinent = []
-
-                    for (let countrie of countriesTableau) {
-                        for (let eu of continent) {
-                            if (countrie[0].iso2 === eu) {
-                                isoContinent.push(countrie[0].iso3)
-                            }
-                        }
-                    }
-
-                    var continentConfirmed = []
-                    var continentDeaths = []
-                    var continentRecovered = []
-
-                    for (let isoEu of isoContinent) {
-
-                        const URL_COUNTRIES_DETAILS = `https://covid19.mathdro.id/api/countries/${isoEu}`
-
-                        fetch(URL_COUNTRIES_DETAILS).then(function (response) {
-                                if (response.ok) {
-                                    response.json().then((data) => {
-
-                                        let mortalityRate = ((data.deaths.value * 100) / data.confirmed.value).toFixed(2)
-                                        const lastUpdate = new Date(data.lastUpdate);
-                                        const niceDate = getLastDataUpdateDate(lastUpdate);
-
-                                        continentDeaths.push(data.deaths.value)
-                                        continentRecovered.push(data.recovered.value)
-                                        continentConfirmed.push(data.confirmed.value)
-                                    })
-                                } else {
-                                    console.log('Mauvaise réponse du réseau');
-                                }
-                            })
-
-                            .catch(function (error) {
-                                console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-                            });
-                    } // end for
-                    continentConfirmed
-
-                    continentDeaths
-                    continentRecovered
-
-
-
-
-
-
-
-
-
-
-                }) // response data END
-                return continentConfirmed, continentDeaths, continentRecovered
-            } else {
-                console.log('Mauvaise réponse du réseau');
-            }
-        })
-        .catch(function (error) {
-            console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-        });
-
-}
-
-
-
-getDataContinent(europeCode)

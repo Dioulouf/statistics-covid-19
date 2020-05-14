@@ -374,12 +374,6 @@ label {
 .container-data-continents .global-data-map__deaths h3 {
   color: #E6776B;
 }
-.container-data-continents .global-data-map__discovered {
-  border: 2px solid #50FFB1;
-}
-.container-data-continents .global-data-map__discovered h3 {
-  color: #50FFB1;
-}
 .container-data-continents div {
   height: 150px;
   width: 200px;
